@@ -4,7 +4,7 @@ import sys
 import random
 
 def main():
-    gamestate = 0  # 0 タイトル、1 ゲーム中、2 ゲームオーバー、-1 エラー
+    gamescene = 0  # 0 タイトル、1 ゲーム中、2 ゲームオーバー、-1 エラー
     pygame.init()  # Pygameを初期化
     screen = pygame.display.set_mode((900, 600))  # 画面を作成
     pygame.display.set_caption("Hit & Blow game")
@@ -20,13 +20,13 @@ def main():
 
     while running:
         screen.fill((100, 100, 100))  # 背景色で塗る
-        # この時点では、　screen.blit(gamebutton[gamestate], gamebuttonrect) で済むけど、
+        # この時点では、　screen.blit(gamebutton[gamescene], gamebuttonrect) で済むけど、
         # とりあえずは、if文でわけておく
-        if gamestate == 0:
+        if gamescene == 0:
             screen.blit(gamebutton[0], gamebuttonrect)
-        elif gamestate == 1:
+        elif gamescene == 1:
             screen.blit(gamebutton[1], gamebuttonrect)
-        elif gamestate ==2:
+        elif gamescene ==2:
             screen.blit(gamebutton[2], gamebuttonrect)
         else:
             print("error")
@@ -38,17 +38,18 @@ def main():
                 sys.exit()  # システム終了
             if (event.type == pygame.MOUSEBUTTONUP) and (event.button == 1):
                 if gamebuttonrect.collidepoint(event.pos):
-                    if gamestate == 0:
-                        gamestate = 1
-                    elif gamestate == 1:
-                        gamestate = 2
-                    elif gamestate == 2:
-                        gamestate = 0
+                    if gamescene == 0:
+                        gamescene = 1
+                    elif gamescene == 1:
+                        gamescene = 2
+                    elif gamescene == 2:
+                        gamescene = 0
                     else:
-                        gamestate = -1
+                        gamescene = -1
 
         pygame.display.update()  # 描画処理を実行
 
 
 if __name__ == "__main__":
     main()
+
